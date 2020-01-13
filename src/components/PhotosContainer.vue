@@ -1,25 +1,37 @@
 <template>
-  <main>
-    <div class="daily-photo">
-      <h1>{{ msg }}</h1>
-    </div>
-    <div class='monthly-photos'>
-
-    </div>
+  <main class="photo-area">
+    <section class="daily-photo">
+      <h1>Today's Photo:</h1>
+      <h3>{{dailyPhoto.title}}</h3>
+      <img v-bind:src="dailyPhoto.hdurl"/>
+    </section>
+    <section class='monthly-photos'>
+      <h1>This Month's Photos:</h1>
+      <h3>Scroll Down for more</h3>
+      <div>
+        <img v-for="image in thisMonthsPhotos" :src="image.hdurl"/>
+      </div>
+    </section>
   </main>
 </template>
 
 <script>
-import { getDailyPhoto } from '../apiCalls';
+import { getDailyPhoto, getThisMonthsPhotos } from '../apiCalls';
 export default {
   name: 'DailyPhoto',
-  props: {
-    msg: String
+  data() {
+    return {
+      dailyPhoto: {},
+      thisMonthsPhotos: []
+    }
   },
   async mounted() {
     const photoData = await getDailyPhoto();
-    console.log(photoData);
-  }
+    this.dailyPhoto = photoData;
+    console.log(photoData)
+    const monthlyPhotos = await getThisMonthsPhotos();
+    this.thisMonthsPhotos = monthlyPhotos;
+}
 }
 
 
@@ -27,18 +39,29 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+main {
+  display: flex;
+  height: 70vh;
+  justify-content: space-around;
+  padding: 1vw;
+  width: 100vw;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+section {
+  width: 50vw
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+
+div {
+  height: 57vh;
+  overflow-y: scroll;
+  width: 95%;
 }
-a {
-  color: #42b983;
+
+h1 {
+  /* position: fixed; */
+}
+
+img {
+  width: 40vw;
 }
 </style>
