@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1>NASA's Daily Photos</h1>
     <PhotosContainer />
   </div>
 </template>
@@ -22,6 +23,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  width: 100vw;
+}
+
+h1 {
+  width: 100vw;
 }
 </style>
