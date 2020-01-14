@@ -1,28 +1,52 @@
 <template>
-  <main class="photo-area">
-    <section class="daily-photo">
-      <h1>Today's Photo:</h1>
-      <h3>{{dailyPhoto.title}}</h3>
-      <img v-bind:src="dailyPhoto.hdurl"/>
-    </section>
-    <section class='monthly-photos'>
-      <h1>This Month's Photos:</h1>
-      <h3>Scroll Down for more</h3>
-      <div>
-        <img v-for="image in thisMonthsPhotos" :src="image.hdurl"/>
-      </div>
-    </section>
+  <main class='monthly-photos'>
+    <h1>This Month's Photos:</h1>
+    <div class="todays-header">
+      <h2>Today's Photo:</h2>
+    </div> 
+    <h3>Scroll Down for more</h3>
+    <div class="photo-display">
+      <img 
+        v-for="(image, index) in thisMonthsPhotos" :src="image.hdurl" :data-index="index" 
+        v-bind:class="{todaysImage: image.date === dailyPhoto.date}"
+        @click="choosePhoto"
+      />
+    </div>
+    <PhotoModal 
+      v-show="showModal"
+      v-bind="currentPhoto"
+      @close="closeModal"
+    />
   </main>
 </template>
 
 <script>
 import { getDailyPhoto, getThisMonthsPhotos } from '../apiCalls';
+import PhotoModal from './PhotoModal';
+
 export default {
   name: 'DailyPhoto',
+  components: {
+    PhotoModal
+  },
   data() {
     return {
       dailyPhoto: {},
-      thisMonthsPhotos: []
+      thisMonthsPhotos: [],
+      currentPhoto: {},
+      showModal: false
+    }
+  },
+  methods: {
+    openModal() {
+      this.showModal = true;
+    },
+    closeModal() {
+      this.showModal = false;
+    },
+    choosePhoto(e) {
+      this.currentPhoto = this.thisMonthsPhotos[e.target.dataset.index];
+      this.openModal()
     }
   },
   async mounted() {
@@ -40,28 +64,52 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 main {
+  background: lightgrey;
   display: flex;
-  height: 70vh;
-  justify-content: space-around;
-  padding: 1vw;
+  flex-direction: column;
+  height: 88vh;
+  padding: 0 1vw;
   width: 100vw;
 }
 
-section {
-  width: 50vw
+h1, 
+h2, 
+h3,
+.todays-header {
+  background: lightblue;
+  height: 5vh;
+  margin: 0;
+}
+
+h2 {
+  border: 5px solid blue;
+  width: 20vw;
+  margin: 0 auto;
 }
 
 div {
-  height: 57vh;
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  height: 69vh;
   overflow-y: scroll;
-  width: 95%;
+  padding: 10px;
+  width: 100vw;
 }
 
-h1 {
-  /* position: fixed; */
+.photo-display {
+  border: 3px solid black;
+}
+
+.todaysImage {
+  border: 5px solid blue;
 }
 
 img {
-  width: 40vw;
+  border-radius: 5px;
+  height: 20vh;
+  margin: 5px;
+  width: 20vw;
 }
 </style>
