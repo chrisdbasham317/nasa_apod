@@ -64,11 +64,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 main {
-  background: lightgrey;
   display: flex;
   flex-direction: column;
   height: 88vh;
-  padding: 0 1vw;
   width: 100vw;
 }
 
@@ -79,6 +77,7 @@ h3,
   background: lightblue;
   height: 5vh;
   margin: 0;
+  width: 100vw;
 }
 
 h2 {
@@ -99,6 +98,7 @@ div {
 }
 
 .photo-display {
+  background: lightgrey;
   border: 3px solid black;
 }
 
