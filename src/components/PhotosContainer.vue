@@ -7,8 +7,8 @@
     <h3>Scroll Down for more</h3>
     <div class="photo-display">
       <img 
-        v-for="(image, index) in thisMonthsPhotos" :src="image.hdurl" :data-index="index" 
-        v-bind:class="{todaysImage: image.date === dailyPhoto.date}"
+        v-for="(image, index) in thisMonthsPhotos" :src="image.hdurl" :data-index="index"
+        v-bind:class="{todaysImage: image.date === dailyPhoto.date, hover: hover}"
         @click="choosePhoto"
       />
     </div>
@@ -34,7 +34,8 @@ export default {
       dailyPhoto: {},
       thisMonthsPhotos: [],
       currentPhoto: {},
-      showModal: false
+      showModal: false,
+      hover: false,
     }
   },
   methods: {
@@ -52,7 +53,6 @@ export default {
   async mounted() {
     const photoData = await getDailyPhoto();
     this.dailyPhoto = photoData;
-    console.log(photoData)
     const monthlyPhotos = await getThisMonthsPhotos();
     this.thisMonthsPhotos = monthlyPhotos;
 }
@@ -111,5 +111,11 @@ img {
   height: 20vh;
   margin: 5px;
   width: 20vw;
+}
+
+img:hover {
+  cursor: pointer;
+  height: 21vh;
+  width: 21vw;
 }
 </style>
