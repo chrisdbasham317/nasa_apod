@@ -3,7 +3,7 @@
     <div class="modal">
       <header class="modal-header">
         <slot name="header">
-          <h1>{{$attrs.title}}</h1>
+          <h1 class="modal-title">{{$attrs.title}}</h1>
         </slot>
       </header>
       <section class="description">
@@ -58,12 +58,17 @@
     border: 2px solid lightgrey;
     border-radius: 10px;
     background: #ffffff;
+    color: #000000;
     display: flex;
     flex-direction: column;
     height: 90vh;
     justify-content: center;
     padding: 10px;
     width: 85vw;
+  }
+
+  .modal-title {
+    text-align: center;
   }
 
   img {
