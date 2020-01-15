@@ -23,15 +23,19 @@ html {
 }
 
 #app {
+  background-image: url('https://blenderartists.org/uploads/default/original/4X/7/e/2/7e2d7bea4ac21388c4a96e1371f375c4ce00094b.jpg');
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #ffffff;
   width: 100vw;
 }
 
 h1 {
   width: 100vw;
+  margin: 0;
+  padding: 10px;
+  text-align: left;
 }
 </style>

@@ -1,9 +1,7 @@
 <template>
   <main class='monthly-photos'>
     <h1>This Month's Photos:</h1>
-    <div class="todays-header">
       <h2>Today's Photo:</h2>
-    </div> 
     <h3>Scroll Down for more</h3>
     <div class="photo-display">
       <img 
@@ -74,7 +72,6 @@ h1,
 h2, 
 h3,
 .todays-header {
-  background: lightblue;
   height: 5vh;
   margin: 0;
   width: 100vw;
@@ -108,6 +105,9 @@ div {
 
 img {
   border-radius: 5px;
+  box-shadow: 3px 3px 2px 3px rgba(0,0,0,0.75);
+  -moz-box-shadow: 3px 3px 2px 3px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 3px 3px 2px 3px rgba(0,0,0,0.75);
   height: 20vh;
   margin: 5px;
   width: 20vw;
