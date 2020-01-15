@@ -4,6 +4,10 @@
       <h2>Today's Photo:</h2>
     <h3>Scroll Down for more</h3>
     <div class="photo-display">
+      <div v-if="isLoading" class="loading-container">
+        <img src="https://media.giphy.com/media/FrOlhISiIhAFa/giphy.gif"/>
+        <h5>Loading...</h5>
+      </div>
       <img 
         v-for="(image, index) in thisMonthsPhotos" :src="image.hdurl" :data-index="index"
         v-bind:class="{todaysImage: image.date === dailyPhoto.date, hover: hover}"
@@ -33,7 +37,7 @@ export default {
       thisMonthsPhotos: [],
       currentPhoto: {},
       showModal: false,
-      hover: false,
+      isLoading: false,
     }
   },
   methods: {
@@ -49,10 +53,12 @@ export default {
     }
   },
   async mounted() {
+    this.isLoading = true;
     const photoData = await getDailyPhoto();
     this.dailyPhoto = photoData;
     const monthlyPhotos = await getThisMonthsPhotos();
     this.thisMonthsPhotos = monthlyPhotos;
+    this.isLoading = false;
 }
 }
 
@@ -117,5 +123,14 @@ img:hover {
   cursor: pointer;
   height: 21vh;
   width: 21vw;
+}
+
+.loading-container {
+  align-items: center;
+  color: #000000;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+  justify-content: center;
 }
 </style>
